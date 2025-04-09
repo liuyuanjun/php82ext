@@ -1,5 +1,5 @@
 # 构建阶段
-FROM php:8.2-fpm-bullseye as builder
+FROM --platform=$BUILDPLATFORM php:8.2-fpm-bullseye as builder
 
 # 安装必要的构建工具和依赖
 RUN apt-get update && apt-get install -y \
@@ -20,8 +20,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 设置架构特定的环境变量
-ENV CFLAGS="-O2"
-ENV CXXFLAGS="-O2"
+ENV CFLAGS="-O2 -march=armv7-a -mfpu=neon -mfloat-abi=hard"
+ENV CXXFLAGS="-O2 -march=armv7-a -mfpu=neon -mfloat-abi=hard"
 
 # 安装PHP扩展
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
