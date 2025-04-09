@@ -19,6 +19,10 @@ RUN apt-get update && apt-get install -y \
     libmagickwand-dev \
     && rm -rf /var/lib/apt/lists/*
 
+# 设置架构特定的环境变量
+ENV CFLAGS="-O2 -march=native"
+ENV CXXFLAGS="-O2 -march=native"
+
 # 安装PHP扩展
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions && \
