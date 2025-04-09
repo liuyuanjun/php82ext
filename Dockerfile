@@ -12,10 +12,11 @@ RUN apt-get install -y wget
 # 安装PHP扩展
 # ADD https://mirror.ghproxy.com/https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-RUN chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions gd exif zip calendar gettext yaml iconv ctype gettext json mbstring curl dom xml session
+RUN chmod +x /usr/local/bin/install-php-extensions
+
+RUN install-php-extensions gd exif zip calendar gettext yaml iconv ctype gettext json mbstring curl dom xml session
 RUN install-php-extensions mysqli pdo pdo_mysql redis @composer
-RUN install-php-extensions imagick 
+RUN install-php-extensions imagick
 
 # 清理
 RUN rm -rf /var/lib/apt/lists/* && \
